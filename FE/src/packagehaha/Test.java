@@ -76,7 +76,7 @@ class Test {
 			sum += stopTime - startTime;
 		}
 		
-		return new double[]{sum / n_test, overflows};
+		return new double[]{(double)sum / n_test, overflows};
 		
 	}
 	
