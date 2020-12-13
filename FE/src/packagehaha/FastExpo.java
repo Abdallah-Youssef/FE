@@ -28,8 +28,8 @@ public class FastExpo {
 		int c = 1;
 		for (int i = 0;i < b;i++) {
 			if (mul_overflows(c, a)) {
-				System.out.println("C overflowed at b = " + i);
-				break;
+				//System.out.println("C overflowed at b = " + i);
+				return -1;
 			}
 			
 			c = Math.multiplyExact(c, a);
@@ -43,8 +43,8 @@ public class FastExpo {
 		int c = 1;
 		for (int i = 0;i < b;i++) {
 			if (mul_overflows(c, a)) {
-				System.out.println("C overflowed at b = " + i);
-				break;
+				//System.out.println("C overflowed at b = " + i);
+				return -1;
 			}
 			
 			
@@ -60,11 +60,13 @@ public class FastExpo {
 			return 1;
 		
 		int ret = fast_expo_recursive (a, b / 2, m);
+		if (ret == -1)
+			return -1;
 		ret %= m;
 		
 		if (mul_overflows(ret, ret)) {
-			System.out.println("ret * ret = " + ret + "*" + ret + "\nOverflows at b = " + b);
-			return 0;
+			//System.out.println("ret * ret = " + ret + "*" + ret + "\nOverflows at b = " + b);
+			return -1;
 		}
 	
 		if (b % 2 == 0) {
@@ -76,8 +78,8 @@ public class FastExpo {
 			ret %= m;
 			
 			if (mul_overflows(ret, a)) {
-				System.out.println("ret * a = " + ret + "*" + a + "\nOverflows at b = " + b);
-				return 0;
+				//System.out.println("ret * a = " + ret + "*" + a + "\nOverflows at b = " + b);
+				return -1;
 			}
 
 			return (ret * a) % m;
@@ -93,8 +95,8 @@ public class FastExpo {
 		while (b > 0) {
 			if ((b & 1) == 1) {
 				if (mul_overflows(c, a)) {
-					System.out.println("(c * a) = " + c + "*" + a + "\nOverflows at b = " + b);
-					return 0;
+					//System.out.println("(c * a) = " + c + "*" + a + "\nOverflows at b = " + b);
+					return -1;
 				}
 				
 				c *= a;
@@ -103,8 +105,8 @@ public class FastExpo {
 				
 				
 			if (mul_overflows(a, a)) {
-				System.out.println("(a * a)= " + a + "*" + a + "\nOverflows at b = " + b);
-				return 0;
+				//System.out.println("(a * a)= " + a + "*" + a + "\nOverflows at b = " + b);
+				return -1;
 			}
 			a *= a;
 			a %= m;
